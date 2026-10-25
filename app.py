@@ -230,7 +230,14 @@ if __name__ == "__main__":
         if pr and (pr.leer("estado.json", {}) or {}).get("fase") in ("analizar", "renderizar"):
             pr.estado("error", "Se interrumpió al cerrar la app", None, "Vuelve a lanzarlo: lo ya hecho no se repite.")
     url = f"http://127.0.0.1:{a.puerto}"
-    srv = ThreadingHTTPServer(("127.0.0.1", a.puerto), Manejador)   # solo accesible desde este ordenador
+    try:
+        srv = ThreadingHTTPServer(("127.0.0.1", a.puerto), Manejador)   # solo accesible desde este ordenador
+    except OSError:
+        print(f"El puerto {a.puerto} ya está en uso: probablemente la app ya está abierta. La abro en el navegador.")
+        print(f"Si no es la app, usa otro puerto: python app.py --puerto {a.puerto + 1}")
+        if not a.no_abrir:
+            webbrowser.open(url)
+        raise SystemExit(1)
     print(f"Entrevista Vertical en {url}  (Ctrl+C para salir)")
     if not a.no_abrir:
         threading.Timer(0.8, lambda: webbrowser.open(url)).start()

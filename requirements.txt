@@ -1,0 +1,5 @@
+torch>=2.2
+openai-whisper>=20250625
+speechbrain>=1.0
+numpy>=1.26
+pillow>=10.0

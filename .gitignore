@@ -1,0 +1,7 @@
+proyectos/
+modelos/
+fuentes/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store

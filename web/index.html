@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrevista Vertical</title>
+<link rel="stylesheet" href="/web/estilo.css">
+</head>
+<body>
+<header>
+  <h1>Entrevista Vertical</h1>
+  <p class="sub">Convierte una entrevista horizontal en vídeos verticales que siguen a quien habla. Todo en tu ordenador.</p>
+  <ol id="pasos">
+    <li data-paso="subir">Vídeo</li><li data-paso="personas">Personas</li><li data-paso="analizar">Análisis</li>
+    <li data-paso="revisar">Revisar</li><li data-paso="render">Resultado</li>
+  </ol>
+</header>
+
+<main>
+  <div id="aviso" class="aviso" hidden></div>
+
+  <!-- 1 · subir -->
+  <section id="v-subir" hidden>
+    <label id="zona" class="zona">
+      <input type="file" id="archivo" accept="video/*" hidden>
+      <strong>Arrastra aquí tu vídeo</strong><span>o haz clic para elegirlo · cámara fija, en horizontal</span>
+    </label>
+    <div id="subiendo" hidden><div class="barra"><i id="barra-subida"></i></div><p id="txt-subida"></p></div>
+    <div id="recientes"></div>
+  </section>
+
+  <!-- 2 · personas -->
+  <section id="v-personas" hidden>
+    <h2>¿Quién sale en el vídeo?</h2>
+    <p>Haz clic en la <b>cara</b> de cada persona. Puedes ponerle nombre.</p>
+    <div class="marco"><img id="foto" alt="Fotograma del vídeo"><div id="puntos"></div></div>
+    <div id="lista-personas"></div>
+    <div class="campos">
+      <label>Nombre del vídeo <input id="nombre"></label>
+      <label>¿En cuántas partes lo divido? <input id="partes" type="number" min="1" max="10" value="1"></label>
+      <label>Idioma
+        <select id="idioma"><option value="es">Español</option><option value="en">Inglés</option><option value="pt">Portugués</option></select>
+      </label>
+      <label>Precisión de la transcripción
+        <select id="modelo"><option value="turbo">Alta (más lenta)</option><option value="small">Media (más rápida)</option></select>
+      </label>
+      <label class="ancho">Nombres propios que se dicen (ayuda a escribirlos bien)
+        <input id="vocabulario" placeholder="Ej.: Vitalmente, Radio Panamá, Eyleen Montero"></label>
+    </div>
+    <button id="btn-analizar" class="primario">Analizar</button>
+    <p class="nota">El análisis tarda más o menos lo que dura el vídeo. Puedes dejarlo trabajando.</p>
+  </section>
+
+  <!-- 3 · progreso -->
+  <section id="v-progreso" hidden>
+    <h2 id="prog-titulo">Trabajando…</h2>
+    <div class="barra"><i id="barra"></i></div>
+    <p id="prog-paso"></p>
+    <ul id="prog-log"></ul>
+    <pre id="prog-error" hidden></pre>
+    <button id="btn-reintentar" class="secundario" hidden>Volver al paso anterior</button>
+  </section>
+
+  <!-- 4 · revisar -->
+  <section id="v-revisar" hidden>
+    <h2>Revisa antes de renderizar</h2>
+    <h3>Voces</h3>
+    <p>Escucha cada voz y comprueba que corresponde a la persona correcta.</p>
+    <div id="voces"></div>
+
+    <h3>Cortes</h3>
+    <div id="cortes"></div>
+    <button id="btn-mas-corte" class="secundario">+ Añadir corte</button>
+
+    <h3>Opciones</h3>
+    <div class="campos">
+      <label class="check"><input type="checkbox" id="quemados"> Subtítulos dibujados en el vídeo <small>(siempre se crea además un .srt)</small></label>
+      <label class="ancho">Correcciones de nombres en los subtítulos (una por línea: <code>mal = bien</code>)
+        <textarea id="correcciones" rows="3" placeholder="Giancarlo = Jean Carlos"></textarea></label>
+      <label>Música (opcional) <input type="file" id="musica" accept="audio/*"></label>
+      <label>¿Dónde va la música?
+        <select id="musica-donde">
+          <option value="auto">Automático (no pisa la sintonía ni la despedida)</option>
+          <option value="inicio">Al inicio de cada parte</option><option value="final">Al final de cada parte</option>
+          <option value="ambos">Inicio y final</option><option value="nada">Sin música</option>
+        </select></label>
+    </div>
+    <button id="btn-render" class="primario">Renderizar</button>
+  </section>
+
+  <!-- 5 · resultado -->
+  <section id="v-render" hidden>
+    <h2>¡Listo!</h2>
+    <p>Los archivos están en la carpeta <code id="carpeta"></code>.</p>
+    <div id="salidas"></div>
+    <button id="btn-otra" class="secundario">Cambiar algo y volver a renderizar</button>
+    <button id="btn-nuevo" class="secundario">Otro vídeo</button>
+  </section>
+</main>
+<script src="/web/app.js"></script>
+</body>
+</html>

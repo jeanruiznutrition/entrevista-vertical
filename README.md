@@ -20,7 +20,7 @@ Necesitas [Homebrew](https://brew.sh). En la Terminal:
 
 ```bash
 brew install ffmpeg python@3.11
-git clone https://github.com/TU-USUARIO/entrevista-vertical.git
+git clone https://github.com/jeanruiznutrition/entrevista-vertical.git
 cd entrevista-vertical
 python3.11 -m venv .venv
 .venv/bin/pip install -r requirements.txt
